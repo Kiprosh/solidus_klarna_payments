@@ -9,8 +9,8 @@ module KlarnaGateway
       end
 
       def add_stylesheets
-        inject_into_file 'vendor/assets/stylesheets/spree/backend/all.css', " *= require spree/backend/klarna_gateway\n", before: /\*\//, verbose: true
-        inject_into_file 'vendor/assets/stylesheets/spree/frontend/all.css', " *= require spree/frontend/klarna_gateway\n", before: / ?\*= ?require_tree \./, verbose: true
+        inject_into_file 'vendor/assets/stylesheets/spree/backend/all.scss', " *= require spree/backend/klarna_gateway\n", before: /\*\//, verbose: true
+        inject_into_file 'vendor/assets/stylesheets/spree/frontend/all.css.scss', " *= require spree/frontend/klarna_gateway\n", before: / ?\*= ?require_tree \./, verbose: true
       end
 
       def add_javascripts
