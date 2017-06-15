@@ -1,8 +1,8 @@
 source 'https://rubygems.org'
 
-solidus_version = ENV["SPREE_VERSION"] || "~> 3.0.8"
+# solidus_version = ENV["SPREE_VERSION"] || "~> 3.0.8"
 
-gem "spree", solidus_version
+gem "spree", "~> 3.0.8"
 
 gemspec
 
