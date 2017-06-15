@@ -44,10 +44,9 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "bundler", "~> 1.12"
   spec.add_development_dependency "rake", "~> 10.0"
 
-  spec.add_dependency "solidus_core", ">= 1.3.0.a", "< 3"
-  spec.add_dependency "solidus_api", ">= 1.3.0.a", "< 3"
-  spec.add_dependency "solidus_frontend", ">= 1.3.0.a", "< 3"
-  spec.add_dependency "solidus_backend", ">= 1.3.0.a", "< 3"
-  spec.add_dependency "klarna_client", ">= 0.9.1"
+  spec.add_dependency "spree_core", "~> 3.0.8"
+  spec.add_dependency "spree_api", "~> 3.0.8"
+  spec.add_dependency "spree_frontend", "~> 3.0.8"
+  spec.add_dependency "spree_backend", "~> 3.0.8"
   spec.add_dependency "activemerchant"
 end

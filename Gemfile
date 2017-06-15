@@ -1,9 +1,9 @@
 source 'https://rubygems.org'
 
-solidus_version = ENV["SOLIDUS_VERSION"] || "~> 1.3.0"
+solidus_version = ENV["SPREE_VERSION"] || "~> 3.0.8"
 
-gem "solidus", solidus_version
+gem "spree", solidus_version
 
 gemspec
 
-gem "solidus_auth_devise"
+gem "spree_auth_devise"
