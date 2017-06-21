@@ -24,8 +24,10 @@ module KlarnaGateway
 
     def name
       @order.adjustments.map do |adjustment|
-        if adjustment.promotion_code
-          "#{adjustment.promotion_code.promotion.name} (#{adjustment.promotion_code.value})"
+        # if adjustment.promotion_code
+        #   "#{adjustment.promotion_code.promotion.name} (#{adjustment.promotion_code.value})"
+        if adjustment.promotion?
+          "#{adjustment.label}"
         end
       end.compact.to_sentence
     end

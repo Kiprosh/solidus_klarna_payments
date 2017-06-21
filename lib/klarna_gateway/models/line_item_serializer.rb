@@ -41,15 +41,18 @@ module KlarnaGateway
     end
 
     def total_amount
-      line_item.display_final_amount.cents
+      # line_item.display_final_amount.cents
+      line_item.display_amount.cents
     end
 
     def total_tax_amount
-      total_amount - line_item.display_pre_tax_amount.cents
+      # total_amount - line_item.display_pre_tax_amount.cents
+      line_item_tax_rate * line_item.quantity
     end
 
     def unit_price
-      line_item.display_price.cents + (total_tax_amount / line_item.quantity).floor
+      # line_item.display_price.cents + (total_tax_amount / line_item.quantity).floor
+      (line_item.display_amount.cents / line_item.quantity) + line_item_tax_rate
     end
 
     def image_url

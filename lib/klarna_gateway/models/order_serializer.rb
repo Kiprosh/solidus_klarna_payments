@@ -58,7 +58,33 @@ module KlarnaGateway
     end
 
     def order_lines
-      line_items + shipments
+      # line_items + shipments
+      line_items + shipments + surcharge
+    end
+
+    def surcharge
+      items = [] #order.line_items.map(&method(:line_item))
+
+      # Below line has been changed to solve the issue with adjustment
+      # https://github.com/spree-contrib/better_spree_paypal_express/issues/129
+      additional_adjustments = order.all_adjustments
+      tax_adjustments = additional_adjustments.tax
+      shipping_adjustments = additional_adjustments.shipping
+      promotion_adjustment = additional_adjustments.promotion
+
+      additional_adjustments.eligible.each do |adjustment|
+        next if (tax_adjustments + shipping_adjustments + promotion_adjustment).include?(adjustment)
+        items << {
+          type: "surcharge",
+          name: adjustment.label,
+          quantity: 1,
+          unit_price: adjustment.amount.to_money.cents,
+          total_amount: adjustment.amount.to_money.cents,
+          total_tax_amount: 0,
+          tax_rate: 0
+        }
+      end
+      items
     end
 
     def line_items
