@@ -9,7 +9,6 @@ module KlarnaGateway
           result = yield
           result.merge!({
             order_amount: order.display_total.cents,
-            # order_tax_amount: order.display_tax_total.cents
             order_tax_amount: order.display_included_tax_total.cents
           })
 

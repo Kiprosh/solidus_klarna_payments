@@ -58,12 +58,11 @@ module KlarnaGateway
     end
 
     def order_lines
-      # line_items + shipments
       line_items + shipments + surcharge
     end
 
     def surcharge
-      items = [] #order.line_items.map(&method(:line_item))
+      items = []
 
       # Below line has been changed to solve the issue with adjustment
       # https://github.com/spree-contrib/better_spree_paypal_express/issues/129
