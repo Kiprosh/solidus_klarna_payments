@@ -2,23 +2,32 @@ module KlarnaGateway
   module SessionController
     def create
       if current_order.klarna_session_expired?
+        klarna_response = ""
         klarna_payment_method.provider.create_session(klarna_order(skip_personal_data: true).to_hash).tap do |response|
-          current_order.update_klarna_session(
-            session_id: response.session_id,
-            client_token: response.client_token
-            ) if response.success?
+          if response.success?
+            current_order.update_klarna_session(
+              session_id: response.session_id,
+              client_token: response.client_token
+              )
+          else
+            klarna_response = response.error_messages
+          end
         end
       else
-        klarna_payment_method.provider.update_session(
-          current_order.klarna_session_id,
-          klarna_order(skip_personal_data: true).to_hash
-        ).tap do |response|
-          current_order.update_klarna_session_time() if response.success?
+          klarna_payment_method.provider.update_session(
+            current_order.klarna_session_id,
+            klarna_order(skip_personal_data: true).to_hash
+          ).tap do |response|
+            if response.success?
+              current_order.update_klarna_session_time()
+            else
+              klarna_response = response.error_messages
+          end
         end
       end
 
       if current_order.klarna_client_token.blank?
-        raise "Could not create or update Klarna session for order '#{current_order.number}'."
+        raise "Could not create or update Klarna session for order '#{current_order.number}' due to #{klarna_response}."
       end
 
       render json: {token: current_order.reload.klarna_client_token}
