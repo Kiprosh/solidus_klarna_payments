@@ -1,7 +1,7 @@
 module KlarnaGateway
   module CheckoutController
     def completion_route
-      klarna_completion_route || spree.order_path(@order)
+      klarna_completion_route || super
     end
 
     def klarna_completion_route
